@@ -2,7 +2,7 @@ namespace SnakeSharp.SnakeGameV2;
 
 public class SnakeGameV2
 {
-    private readonly KeyDetection _keyDetection = new KeyDetection();
+    private readonly KeyDetection _keyDetection = new();
 
     // Write start method
     public void Start()
@@ -99,8 +99,11 @@ public class SnakeGameV2
         }
     }
 
-    private static Point UpdateSnake(System.Drawing.Point direction, LinkedList<Point> snake, out Point newHead)
+    private Point UpdateSnake(System.Drawing.Point direction, LinkedList<Point> snake, out Point newHead)
     {
+        // check for null could be done in a better way
+        if(snake.First == null)
+            throw new ArgumentNullException(nameof(snake));
         var head = snake.First.Value;
         newHead = new Point(head.X + direction.X, head.Y + direction.Y);
         return head;

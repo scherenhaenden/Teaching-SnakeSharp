@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using SnakeSharp;
 using SnakeSharp.SnakeGameV2;
 
 // start the game
