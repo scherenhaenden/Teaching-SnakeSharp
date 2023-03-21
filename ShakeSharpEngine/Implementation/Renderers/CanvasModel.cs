@@ -10,13 +10,26 @@ namespace ShakeSharpEngine.Implementation.Renderers;
 /// </summary>
 public class CanvasModel
 {
+    public CanvasModel()
+    {
+        
+        
+    }
+    
+    public CanvasModel(int width, int height)
+    {
+        Width = width;
+        Height = height;
+    }
+    
+    // TODO: change all of this
     /// <summary>
-    /// Gets or sets the width of the console model.
+    /// Gets or sets the width of the canvas coordinates.
     /// </summary>
     public int Width { get; set; }
 
     /// <summary>
-    /// Gets or sets the height of the console model.
+    /// Gets or sets the height of the canvas coordinates.
     /// </summary>
     public int Height { get; set; }
 }

@@ -1,9 +1,64 @@
 @page "/snake"
+@using Microsoft.AspNetCore.Components.RenderTree
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@using SnakeSharpBlazor.Client.Snake
+@inject IJSRuntime JSRuntime
+
+
 <h3>Snake</h3>
 
 <!-- Add canvas for snake-->
-<canvas id="snakeCanvas" style="background-color: red" width="800" height="800"></canvas>
+<canvas id="snakeCanvas" style="background-color: red" 
+        width="@snake.CanvasModel.Width" height="@snake.CanvasModel.Height"
+></canvas>
+
+
 
 @code {
+    private ElementReference canvasElement;
     
+    GameOfSnake snake = new GameOfSnake();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Get the canvas element and context
+            var canvasElement = await JSRuntime.InvokeAsync<ElementReference>("snakeCanvas", "canvas");
+            
+            
+            //var objRef = DotNetObjectReference.Create(this);
+            //await JSRuntime.InvokeVoidAsync("initializeCanvas", canvasElement);
+
+            // Render the initial state of the game
+            //Renderer.RenderSnake(snake);
+            //Renderer.RenderFood(food);
+        }
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        // Handle key press and update the direction of the snake
+        //var direction = GetDirectionFromKey(e.Key);
+        //UpdateSnake(direction);
+        snake.KeyDown(e.Key);
+    }
+
+    // JavaScript interop method to initialize the canvas
+    [JSInvokable]
+    public static async Task InitializeCanvas(ElementReference canvas)
+    {
+
+        var gl = canvas;
+    // Get the canvas element and context
+    //var canvasElement = await jsRuntime.InvokeAsync<ElementReference>("snakeCanvas", "canvas");
+    //var ctx = await canvasElement.InvokeAsync<CanvasRenderingContext2D>("getContext", "2d");
+    //var canvasElement = await canvas.ResolveReference();
+    //var ctx = canvasElement.getContext("2d");
+
+    // Add event listener for key down events
+    /*document.addEventListener("keydown", async (e) => {
+                await JSRuntime.InvokeVoidAsync("SnakeGame.HandleKeyDown", e);
+        });*/
+    }
 }

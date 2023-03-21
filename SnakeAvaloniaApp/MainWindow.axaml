@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+        Height="820" Width="820"
+        x:Class="SnakeAvaloniaApp.MainWindow"
+        Title="SnakeAvaloniaApp">
+    
+    <!-- Create Canvas-->
+    <Canvas 
+        x:Name="snakeCanvas"
+        Background="Red"
+        Width="800"
+        Height="800"
+        Margin="10,10,10,10"
+        
+        
+    
+        
+        >
+        
+    </Canvas>
+</Window>

@@ -3,7 +3,7 @@ using ShakeSharpEngine.Implementation.Renderers;
 
 namespace ShakeSharpEngine.Core.Rendering;
 
-public interface IRenderer
+public interface ISnakeGameRenderer
 {
     void RenderSnake(LinkedList<Point> snake);
     void RenderFood(Point food);

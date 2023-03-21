@@ -6,22 +6,22 @@ namespace ShakeSharpEngine.Implementation.Game;
 
 public class SnakeGameV1: ISnakeGame
 {
-    private readonly IRenderer _renderer;
+    private readonly ISnakeGameRenderer _snakeGameRenderer;
+    private readonly IInputManagerSnakeEngine _inputManagerSnakeEngine;
 
-    public SnakeGameV1(IRenderer renderer)
+    public SnakeGameV1(ISnakeGameRenderer snakeGameRenderer, IInputManagerSnakeEngine inputManagerSnakeEngine)
     {
-        _renderer = renderer;
+        _snakeGameRenderer = snakeGameRenderer;
+        _inputManagerSnakeEngine = inputManagerSnakeEngine;
     }
-    
-    
-    private readonly KeyDetection _keyDetection = new();
+
 
     // Write start method
     public void Start()
     {
         
-        var canvasWidth = _renderer.CanvasModel.Width;
-        var canvasHeight = _renderer.CanvasModel.Height;
+        var canvasWidth = _snakeGameRenderer.CanvasModel.Width;
+        var canvasHeight = _snakeGameRenderer.CanvasModel.Height;
         
         var snake = new LinkedList<Point>();
 
@@ -34,33 +34,33 @@ public class SnakeGameV1: ISnakeGame
         var direction = Direction.Right;
         
         GameRunner(direction, snake, food);
-        _renderer.RenderEnd();
+        _snakeGameRenderer.RenderEnd();
     }
 
-    private void GameRunner(System.Drawing.Point direction, LinkedList<Point> snake, Point food)
+    private void GameRunner(Point direction, LinkedList<Point> snake, Point food)
     {
-        var canvasWidth = _renderer.CanvasModel.Width;
-        var canvasHeight = _renderer.CanvasModel.Height;
+        var canvasWidth = _snakeGameRenderer.CanvasModel.Width;
+        var canvasHeight = _snakeGameRenderer.CanvasModel.Height;
         while (true)
         {
-            direction = _keyDetection.KeyDirectionDetection(direction);
+            direction = _inputManagerSnakeEngine.GetDirection(direction);
             // clear the console
-            _renderer.ResetView();
-            direction = _keyDetection.KeyDirectionDetection(direction);
+            _snakeGameRenderer.ResetView();
+            direction = _inputManagerSnakeEngine.GetDirection(direction);
 
             // draw the snake
-            _renderer.RenderSnake(snake);
+            _snakeGameRenderer.RenderSnake(snake);
 
             // draw the food
-            _renderer.RenderFood(food);
+            _snakeGameRenderer.RenderFood(food);
 
-            direction = _keyDetection.KeyDirectionDetection(direction);
+            direction = _inputManagerSnakeEngine.GetDirection(direction);
 
             // update the snake
             var head = UpdateSnake(direction, snake, out var newHead);
             snake.AddFirst(newHead);
 
-            direction = _keyDetection.KeyDirectionDetection(direction);
+            direction = _inputManagerSnakeEngine.GetDirection(direction);
 
             if (newHead.X == food.X && newHead.Y == food.Y)
             {
@@ -68,12 +68,12 @@ public class SnakeGameV1: ISnakeGame
                 food = new Point(RandomNumber(0, canvasWidth), RandomNumber(0, canvasHeight));
                 //snake.AddFirst(newHead);
                 head = UpdateSnake(direction, snake, out newHead);
-                direction = _keyDetection.KeyDirectionDetection(direction);
+                direction = _inputManagerSnakeEngine.GetDirection(direction);
             }
             else
             {
                 snake.RemoveLast();
-                direction = _keyDetection.KeyDirectionDetection(direction);
+                direction = _inputManagerSnakeEngine.GetDirection(direction);
             }
 
             // check for collision with the wall
@@ -82,7 +82,7 @@ public class SnakeGameV1: ISnakeGame
                 break;
             }
 
-            direction = _keyDetection.KeyDirectionDetection(direction);
+            direction = _inputManagerSnakeEngine.GetDirection(direction);
             // check for collision with the snake
             if (snake.Count > 1 && snake.Skip(1).Contains(newHead))
             {
@@ -91,15 +91,15 @@ public class SnakeGameV1: ISnakeGame
 
 
             // handle input
-            direction = _keyDetection.KeyDirectionDetection(direction);
+            direction = _inputManagerSnakeEngine.GetDirection(direction);
 
             // wait for a short time before updating the console again
             Thread.Sleep(100);
-            direction = _keyDetection.KeyDirectionDetection(direction);
+            direction = _inputManagerSnakeEngine.GetDirection(direction);
         }
     }
 
-    private Point UpdateSnake(System.Drawing.Point direction, LinkedList<Point> snake, out Point newHead)
+    private Point UpdateSnake(Point direction, LinkedList<Point> snake, out Point newHead)
     {
         // check for null could be done in a better way
         if(snake.First == null)

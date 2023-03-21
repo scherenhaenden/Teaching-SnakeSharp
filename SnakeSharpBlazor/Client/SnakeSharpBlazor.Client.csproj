@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>        
+        <ProjectReference Include="..\..\ShakeSharpEngine\ShakeSharpEngine.csproj" />        
         <ProjectReference Include="..\Shared\SnakeSharpBlazor.Shared.csproj" />
     </ItemGroup>
 

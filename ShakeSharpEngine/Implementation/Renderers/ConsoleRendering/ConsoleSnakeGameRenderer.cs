@@ -3,9 +3,9 @@ using ShakeSharpEngine.Core.Rendering;
 
 namespace ShakeSharpEngine.Implementation.Renderers.ConsoleRendering;
 
-public class ConsoleRenderer: IRenderer
+public class ConsoleSnakeGameRenderer: ISnakeGameRenderer
 {
-    public ConsoleRenderer()
+    public ConsoleSnakeGameRenderer()
     {
         Console.TreatControlCAsInput = true;
         GetConsoleModel();
