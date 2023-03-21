@@ -14,4 +14,12 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ShakeSharpEngine\ShakeSharpEngine.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="SnakeGameV2\" />
+    </ItemGroup>
+
 </Project>

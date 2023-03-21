@@ -1,4 +1,4 @@
-namespace SnakeSharp.Implementation.Renderers.ConsoleRendering;
+namespace ShakeSharpEngine.Implementation.Renderers.ConsoleRendering;
 
 
 public class ConsoleManager

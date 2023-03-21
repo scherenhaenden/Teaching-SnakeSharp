@@ -1,7 +1,7 @@
-using SnakeSharp.Implementation.Renderers;
-using SnakeSharp.SnakeGameV2;
+using ShakeSharpEngine.Core.Models;
+using ShakeSharpEngine.Implementation.Renderers;
 
-namespace SnakeSharp.Core.Rendering;
+namespace ShakeSharpEngine.Core.Rendering;
 
 public interface IRenderer
 {

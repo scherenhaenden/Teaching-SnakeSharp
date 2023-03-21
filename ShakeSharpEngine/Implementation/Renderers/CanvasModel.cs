@@ -1,4 +1,4 @@
-namespace SnakeSharp.Implementation.Renderers;
+namespace ShakeSharpEngine.Implementation.Renderers;
 
 /// <summary>
 /// (Eng) This class represents a console model that contains information about the current console's width and height.

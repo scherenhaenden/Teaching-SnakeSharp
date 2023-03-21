@@ -1,4 +1,4 @@
-namespace SnakeSharp.SnakeGameV2;
+namespace ShakeSharpEngine.Core.Models;
 
 public class KeyDetection
 {

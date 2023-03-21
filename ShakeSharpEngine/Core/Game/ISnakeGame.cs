@@ -1,4 +1,4 @@
-namespace SnakeSharp.Core.Game;
+namespace ShakeSharpEngine.Core.Game;
 
 public interface ISnakeGame
 {

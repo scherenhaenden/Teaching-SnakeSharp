@@ -1,8 +1,8 @@
-using SnakeSharp.Core.Game;
-using SnakeSharp.Core.Rendering;
-using SnakeSharp.SnakeGameV2;
+using ShakeSharpEngine.Core.Game;
+using ShakeSharpEngine.Core.Models;
+using ShakeSharpEngine.Core.Rendering;
 
-namespace SnakeSharp.Implementation.Game;
+namespace ShakeSharpEngine.Implementation.Game;
 
 public class SnakeGameV1: ISnakeGame
 {

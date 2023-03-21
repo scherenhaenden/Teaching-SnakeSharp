@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using SnakeSharp.Implementation.Game;
-using SnakeSharp.Implementation.Renderers.ConsoleRendering;
+using ShakeSharpEngine.Implementation.Game;
+using ShakeSharpEngine.Implementation.Renderers.ConsoleRendering;
 
 // start the game
 var snakeGameV2 = new SnakeGameV2(new ConsoleRenderer());
