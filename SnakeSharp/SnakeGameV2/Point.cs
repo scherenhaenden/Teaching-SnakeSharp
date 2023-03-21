@@ -2,8 +2,8 @@ namespace SnakeSharp.SnakeGameV2;
 
 public struct Point
 {
-    public readonly int X;
-    public readonly int Y;
+    public int X { get; set; }
+    public int Y{ get; set; }
 
     public Point(int x, int y)
     {

@@ -1,59 +1,58 @@
-namespace SnakeSharp.SnakeGameV2;
+using SnakeSharp.Core.Game;
+using SnakeSharp.Core.Rendering;
+using SnakeSharp.SnakeGameV2;
 
-public class SnakeGameV2
+namespace SnakeSharp.Implementation.Game;
+
+public class SnakeGameV1: ISnakeGame
 {
+    private readonly IRenderer _renderer;
+
+    public SnakeGameV1(IRenderer renderer)
+    {
+        _renderer = renderer;
+    }
+    
+    
     private readonly KeyDetection _keyDetection = new();
 
     // Write start method
     public void Start()
     {
-        //DetectKeyStroke();
         
-        Console.TreatControlCAsInput = true;
-        // get current size of the console
-        var width = GetSizeConsoleModel();
-        
-        // print size of console 
-        Console.WriteLine(width.Width);
-        Console.WriteLine(width.Height);
+        var canvasWidth = _renderer.CanvasModel.Width;
+        var canvasHeight = _renderer.CanvasModel.Height;
         
         var snake = new LinkedList<Point>();
-        snake.AddLast(new Point(Console.WindowWidth / 2, Console.WindowHeight / 2));
+
+        snake.AddLast(new Point(canvasWidth / 2, canvasHeight / 2));
        
         
         // initialize the food
-        var food = new Point(RandomNumber(0, Console.WindowWidth), RandomNumber(0, Console.WindowHeight));
+        var food = new Point(RandomNumber(0, canvasWidth), RandomNumber(0, canvasHeight));
 
         var direction = Direction.Right;
         
         GameRunner(direction, snake, food);
-        Console.Clear();
-        Console.SetCursorPosition(Console.WindowWidth / 2 - 4, Console.WindowHeight / 2);
-        Console.Write("Game Over");
-        Console.ReadKey(true);
-        
+        _renderer.RenderEnd();
     }
 
     private void GameRunner(System.Drawing.Point direction, LinkedList<Point> snake, Point food)
     {
+        var canvasWidth = _renderer.CanvasModel.Width;
+        var canvasHeight = _renderer.CanvasModel.Height;
         while (true)
         {
             direction = _keyDetection.KeyDirectionDetection(direction);
             // clear the console
-            Console.Clear();
+            _renderer.ResetView();
             direction = _keyDetection.KeyDirectionDetection(direction);
 
             // draw the snake
-            foreach (var point in snake)
-            {
-                Console.SetCursorPosition(point.X, point.Y);
-                direction = _keyDetection.KeyDirectionDetection(direction);
-                Console.Write('*');
-            }
+            _renderer.RenderSnake(snake);
 
             // draw the food
-            Console.SetCursorPosition(food.X, food.Y);
-            Console.Write('@');
+            _renderer.RenderFood(food);
 
             direction = _keyDetection.KeyDirectionDetection(direction);
 
@@ -65,7 +64,8 @@ public class SnakeGameV2
 
             if (newHead.X == food.X && newHead.Y == food.Y)
             {
-                food = new Point(RandomNumber(0, Console.WindowWidth), RandomNumber(0, Console.WindowHeight));
+                
+                food = new Point(RandomNumber(0, canvasWidth), RandomNumber(0, canvasHeight));
                 //snake.AddFirst(newHead);
                 head = UpdateSnake(direction, snake, out newHead);
                 direction = _keyDetection.KeyDirectionDetection(direction);
@@ -77,7 +77,7 @@ public class SnakeGameV2
             }
 
             // check for collision with the wall
-            if (head.X < 0 || head.X >= Console.WindowWidth || head.Y < 0 || head.Y >= Console.WindowHeight)
+            if (head.X < 0 || head.X >= canvasWidth || head.Y < 0 || head.Y >= canvasHeight)
             {
                 break;
             }
@@ -117,17 +117,4 @@ public class SnakeGameV2
         var random = new Random();
         return random.Next(min, max);
     }
-
-    public ConsoleModel GetSizeConsoleModel()
-    {
-        ConsoleManager consoleManager = new ConsoleManager();
-        
-        // get current size of the console
-        return consoleManager.GetConsoleModel();
-    }
-
-    
-    
-    
-    
 }
