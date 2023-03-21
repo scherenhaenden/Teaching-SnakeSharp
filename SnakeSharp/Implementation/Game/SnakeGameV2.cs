@@ -1,11 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using SnakeSharp.Core.Game;
 using SnakeSharp.Core.Rendering;
-using SnakeSharp.Implementation.Renderers;
-using SnakeSharp.Implementation.Renderers.ConsoleRendering;
 using SnakeSharp.SnakeGameV2;
-using Console = System.Console;
 
 namespace SnakeSharp.Implementation.Game;
 
@@ -53,22 +48,7 @@ public class SnakeGameV2: ISnakeGame
             direction = _keyDetection.KeyDirectionDetection(direction);
 
             // draw the snake
-            foreach (var point in snake)
-            {
-                try
-                {
-                    Console.SetCursorPosition(point.X, point.Y);  
-                }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    //Console.WriteLine(e);
-                    //throw;
-                    break;
-                }
-                
-                direction = _keyDetection.KeyDirectionDetection(direction);
-                Console.Write('*');
-            }
+            _renderer.RenderSnake(snake);
 
             // draw the food
             _renderer.RenderFood(food);
@@ -100,8 +80,7 @@ public class SnakeGameV2: ISnakeGame
             {
                 break;
             }
-
-
+            
             // handle input
             direction = _keyDetection.KeyDirectionDetection(direction);
 
@@ -174,17 +153,4 @@ public class SnakeGameV2: ISnakeGame
         var random = new Random();
         return random.Next(min, max);
     }
-
-    public CanvasModel GetSizeConsoleModel()
-    {
-        ConsoleManager consoleManager = new ConsoleManager();
-        
-        // get current size of the console
-        return consoleManager.GetConsoleModel();
-    }
-
-    
-    
-    
-    
 }
